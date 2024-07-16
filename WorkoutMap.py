@@ -67,7 +67,7 @@ for filename in os.listdir(directoryGarmin):
 
     #use the GPX parser I wrote
     #currWorkout = fp.TCX_Parser(f)
-    currWorkout = fp.GPX_Parser(f)
+    currWorkout = fp.GPX_Parser(f,'Garmin')
 
     #workouts with GPS
     if currWorkout.coords != []:
@@ -128,7 +128,7 @@ for filename in os.listdir(directoryMapMyWalk):
 
     #use the TCX parser I wrote
     #currWorkout = fp.TCX_Parser(f)
-    currWorkout = fp.TCX_Parser(f)
+    currWorkout = fp.TCX_Parser(f,'MapMyWalk')
 
     if currWorkout.coords != []:
 
