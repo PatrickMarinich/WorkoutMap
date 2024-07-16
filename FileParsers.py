@@ -1,12 +1,13 @@
 import re
 import pandas as pd
 import geopy.distance
+import sys
 from datetime import datetime
 
 class GarminWorkout:
 
-    workoutCat = ''
-    source = 'NONE'
+    workoutCat = None
+    source = None
     coords = []
     time = 0.0
     distance = 0.0
@@ -65,19 +66,19 @@ class GarminWorkout:
 
 #Takes in a garmin TCX file of a workout
 #returns a GarminWorkout object with all of the infromation from it as nessassary
-def TCX_Parser(filename):
+def TCX_Parser(filename,source):
     #open the file
     f = open(filename)
     #iterate through the lines looking for the infromation
     c = []
     Ttime = 0.0
     Tcalories = 0.0
-    cat = ''
+    cat = None
     currLat = None
     currLong = None
     Tdistance = None
     Televation = 0.0
-    currElevation = 99999999999999999999999
+    currElevation = sys.maxsize
 
     for line in f:
         if "Activity Sport" in line:
@@ -129,7 +130,7 @@ def TCX_Parser(filename):
 
     #convert meters to feet for the elevation(1:3.28084)
     f.close()
-    return GarminWorkout('MapMyWalk',cat,c,Ttime,Tdistance,Televation*3.28084)
+    return GarminWorkout(source,cat,c,Ttime,Tdistance,Televation*3.28084)
 
     
 
@@ -137,7 +138,7 @@ def TCX_Parser(filename):
 #Get the time by subtracting the last time stamp from the first one
 #Get the distance by doing a calculation on long and late compared to previous point
 #Elevation gain can be done in the same way
-def GPX_Parser(filename):
+def GPX_Parser(filename,source):
 
     #open the file
     f = open(filename,encoding="utf8")
@@ -146,7 +147,7 @@ def GPX_Parser(filename):
     cat = ''
 
     Televation = 0.0
-    currElevation = 9999999999999999999999999
+    currElevation = sys.maxsize
 
     timeStart = None
     timeEnd = None
@@ -190,4 +191,4 @@ def GPX_Parser(filename):
     tdelta = datetime.strptime(timeEnd, FMT) - datetime.strptime(timeStart, FMT)
 
     f.close()
-    return GarminWorkout('Garmin',cat,c,tdelta.seconds,None,Televation)
+    return GarminWorkout(source,cat,c,tdelta.seconds,None,Televation)
