@@ -1,6 +1,8 @@
 # Workout Map
 
-This project's goal is to take a user's GPX and/or TCX files from a tracked workout and display them all on the same map. The goal is to be able to visualize all of the different places where a person has completed a workout or activity such as a run, walk, or bike ride. Written in Python this project utilizes different libraries and custom file parsers to extract critical information from the GPX/TCX files and display them on a map of the world.
+This project's goal is to take a user's GPX and/or TCX files from a tracked workout and display them all on the same map. The goal is to be able to visualize all of the different places where a person has completed a workout or activity such as a run, walk, or bike ride. Written in Python this project utilizes different libraries and custom file parsers to extract critical information from the GPX/TCX files and display them on a map of the world. a
+
+Currently, the output of the program is an HTML file that will generate the map and all of the workouts on it. 
 
 # Example Output
 ![image info](./OutputExample/GarminMapOutput.png)
